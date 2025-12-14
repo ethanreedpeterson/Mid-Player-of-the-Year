@@ -1,1 +1,1 @@
-# mpoy
+# Mid Player of the Year
