@@ -23,7 +23,7 @@ def calculate_mid_for_season(season_df: pd.DataFrame,
     # --- Era-based metric selection ---
     if season < 1974:
         metrics = ["PTS", "TRB", "AST", "FG%"]
-    elif season < 1979:
+    elif season < 1980:
         metrics = ["PTS", "TRB", "AST", "STL", "BLK", "FG%"]
     else:
         metrics = ["PTS", "TRB", "AST", "STL", "BLK", "eFG%"]
@@ -59,16 +59,15 @@ def calculate_mid_for_season(season_df: pd.DataFrame,
 # --------------------------------------------------
 # Apply to all seasons
 # --------------------------------------------------
-all_mid_scores = (
-    player_stats
-        .groupby("Season", group_keys=False)
-        .apply(
-            lambda df: calculate_mid_for_season(
-                df.copy(),
-                league_df=league_averages
-            )
-        )
-        .reset_index(drop=True)
+player_stats.groupby(
+    "Season",
+    group_keys=False
+).apply(
+    lambda df: calculate_mid_for_season(
+        df.copy(),
+        league_df=league_averages
+    ),
+    include_groups=False
 )
 
 # --------------------------------------------------
